@@ -1,13 +1,12 @@
 package com.addmusic;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import net.runelite.client.ui.PluginPanel;
 
-public class AddMusicPanel extends JPanel
+public class AddMusicPanel extends PluginPanel
 {
     public AddMusicPanel()
     {
-        super();
-
         JLabel label = new JLabel("Hello from AddMusic!");
 
         add(label);

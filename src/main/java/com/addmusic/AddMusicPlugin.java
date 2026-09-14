@@ -11,6 +11,10 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 @Slf4j
 @PluginDescriptor(
@@ -24,15 +28,37 @@ public class AddMusicPlugin extends Plugin
 	@Inject
 	private AddMusicConfig config;
 
+    @Inject
+    private ClientToolbar clientToolbar;
+
+    private AddMusicPanel panel;
+    private NavigationButton navigationButton;
+
 	@Override
 	protected void startUp() throws Exception
 	{
 		log.debug("Example started!");
+
+        panel = new AddMusicPanel();
+
+		BufferedImage icon = ImageIO.read(
+				AddMusicPlugin.class.getResourceAsStream("/icon.png")
+		);
+
+        navigationButton = NavigationButton.builder()
+                .tooltip("AddMusic")
+				.icon(icon)
+                .panel(panel)
+                .build();
+
+        clientToolbar.addNavigation(navigationButton);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
+        clientToolbar.removeNavigation(navigationButton);
+
 		log.debug("Example stopped!");
 	}
 
